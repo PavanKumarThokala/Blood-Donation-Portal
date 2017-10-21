@@ -8,6 +8,18 @@ var port = 3000;
 var app = express();
 var index = require('./routes/index.js');
 var users = require('./routes/users.js');
+var mongoose = require('mongoose');
+
+var url = "mongodb://localhost:27017/users";
+mongoose.connect(url);
+mongoose.connection.on('connected',function(){
+    console.log('connection established at localhost:27017');
+});
+mongoose.connection.on('error',function(err){
+    if(err){
+        console.log(err);
+    }
+});
 
 app.use(morgan('dev'));
 app.set('views',path.join(__dirname, 'views'));
